@@ -1,6 +1,4 @@
-const Joi = require('@hapi/joi');
 const schema = require('../../schema');
-const _ = require('lodash');
 
 module.exports.tests = {};
 
@@ -34,6 +32,9 @@ module.exports.tests.completely_valid = (test, common) => {
         defaultParameters: {
           'focus.point.lat': 19,
           'focus.point.lon': 91
+        },
+        featureProperties: {
+          alwaysIncludeCategory: true
         }
       },
       esclient: {
@@ -210,6 +211,29 @@ module.exports.tests.api_validation = (test, common) => {
 
     });
 
+    t.end();
+
+  });
+
+  test('non-boolean api.featureProperties.alwaysIncludeCategory should throw error', (t) => {
+    const config = {
+      api: {
+        version: 'version value',
+        indexName: 'index name value',
+        host: 'host value',
+        featureProperties: {
+          alwaysIncludeCategory: 'yes'
+        }
+      },
+      esclient: {
+        requestTimeout: 17
+      }
+    };
+
+    const result = schema.validate(config);
+
+    t.equals(result.error.details.length, 1);
+    t.equals(result.error.details[0].message, '"api.featureProperties.alwaysIncludeCategory" must be a boolean');
     t.end();
 
   });

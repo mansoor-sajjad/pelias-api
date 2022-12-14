@@ -1,4 +1,3 @@
-
 const Joi = require('@hapi/joi');
 
 // Schema Configuration
@@ -54,10 +53,12 @@ module.exports = Joi.object().keys({
       }).unknown(false)
     }).unknown(false).default({}), // default api.services to an empty object
     defaultParameters: Joi.object().keys({
-        'focus.point.lat': Joi.number(),
-        'focus.point.lon': Joi.number(),
+      'focus.point.lat': Joi.number(),
+      'focus.point.lon': Joi.number(),
+    }).unknown(true).default({}),
+    featureProperties: Joi.object().keys({
+      alwaysIncludeCategory: Joi.boolean()
     }).unknown(true).default({})
-
   }).unknown(true),
   esclient: Joi.object().required().keys({
     requestTimeout: Joi.number().integer().min(0)

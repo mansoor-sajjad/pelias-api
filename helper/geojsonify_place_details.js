@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const field = require('./fieldValue');
+const config = require('pelias-config').generate();
 
 // Properties to be copied
 // If a property is identified as a single string, assume it should be presented as a string in response
@@ -71,7 +72,8 @@ function hasCountry(params, source) {
 }
 
 function checkCategoryParam(params) {
-  return _.isObject(params) && params.hasOwnProperty('categories');
+  return config.get('api.featureProperties', {}).alwaysIncludeCategory ||
+    _.isObject(params) && params.hasOwnProperty('categories');
 }
 
 /**

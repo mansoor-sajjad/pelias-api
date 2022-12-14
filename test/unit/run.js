@@ -37,6 +37,7 @@ var tests = [
   require('./helper/diffPlaces'),
   require('./helper/fieldValue'),
   require('./helper/geojsonify_place_details'),
+  require('./helper/geojsonify_place_details_category_property'),
   require('./helper/geojsonify'),
   require('./helper/iso3166'),
   require('./helper/logging'),
